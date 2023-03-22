@@ -1,6 +1,6 @@
 # Trabalho-Chat
 
-<h1>Lista de Tarefas<h1>
+Lista de Tarefas
 
 - [x] Classe Cliente, Servidor (vivi)
 - [ ] Classe principal projeto
@@ -9,5 +9,7 @@
 
 Fonte Java Swing: <a href="https://www.lncc.br/~rogerio/poo/04a%20-%20Programacao_GUI.pdf "> Interface Gráfica INSS - Profa. Flávia</a>
 
-<h1>Progresso<h1>
+Progresso
+
+<li>Compreendemos o funcionamento das classes principais e subprincipais;<li>
  
