@@ -9,13 +9,13 @@
 
 Fonte Java Swing: <a href="https://www.lncc.br/~rogerio/poo/04a%20-%20Programacao_GUI.pdf "> Interface Gráfica INSS - Profa. Flávia</a>
 
-<h1>Progresso</h1>
+<h1>Progresso
 
 <li>Compreendemos o funcionamento das classes principais e subprincipais;
 <li>Em progresso: compreensão de Java Swing;
 <li>Desenvolvimento do teste de interface com base no DevMedia;
  
-<h1>Ideias</h1>
+<h1>Ideias
  
 <li>Separação das diferentes classes, e interligação delas;
 <li>Desenvolvimento de um UML para melhor entendimento da relação classe-interface;
