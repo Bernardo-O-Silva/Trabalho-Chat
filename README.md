@@ -1,6 +1,6 @@
 # Trabalho-Chat
 
-<h3>Participantes: Anny Caroline Almeida Marcelino, Bernardo de Oliveira Silva, Julia Alice Leão</h3>
+<h5>Participantes: Anny Caroline Almeida Marcelino, Bernardo de Oliveira Silva, Julia Alice Leão</h5>
 
 <h1>Lista de Tarefas</h1>
  
