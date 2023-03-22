@@ -1,6 +1,6 @@
 # Trabalho-Chat
 
-Lista de Tarefas
+<h1>Lista de Tarefas</h1>
 
 - [x] Classe Cliente, Servidor (vivi)
 - [ ] Classe principal projeto
@@ -9,7 +9,15 @@ Lista de Tarefas
 
 Fonte Java Swing: <a href="https://www.lncc.br/~rogerio/poo/04a%20-%20Programacao_GUI.pdf "> Interface Gráfica INSS - Profa. Flávia</a>
 
-Progresso
+<h1>Progresso</h1>
 
-<li>Compreendemos o funcionamento das classes principais e subprincipais;<li>
+<li>Compreendemos o funcionamento das classes principais e subprincipais;
+<li>Em progresso: compreensão de Java Swing;
+<li>Desenvolvimento do teste de interface com base no DevMedia;
+ 
+<h1>Ideias</h1>
+ 
+<li>Separação das diferentes classes, e interligação delas;
+<li>Desenvolvimento de um UML para melhor entendimento da relação classe-interface;
+<li>Um só main para todo o código;
  
