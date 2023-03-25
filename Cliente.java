@@ -14,18 +14,15 @@ import java.util.Scanner;
  * @author Virginia
  */
 public class Cliente {
-   public static void main(String[] args) 
-         throws UnknownHostException, IOException {
-     // dispara cliente
-     new Cliente("10.0.0.65", 12345).executa();
-   }
    
    private String host;
    private int porta;
+   private String username;
    
-   public Cliente (String host, int porta) {
+   public Cliente (String host, int porta, String username) {
      this.host = host;
      this.porta = porta;
+     this.username = username;
    }
    
    public void executa() throws UnknownHostException, IOException {
@@ -40,7 +37,7 @@ public class Cliente {
      Scanner teclado = new Scanner(System.in);
      PrintStream saida = new PrintStream(cliente.getOutputStream());
      while (teclado.hasNextLine()) {
-       saida.println(teclado.nextLine());
+       saida.println(this.username+ ": " +teclado.nextLine());
      }
      
      saida.close();
