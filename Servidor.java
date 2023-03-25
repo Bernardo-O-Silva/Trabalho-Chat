@@ -15,12 +15,8 @@ import java.util.List;
  *
  * @author Virginia
  */
+
 public class Servidor {
- 
-   public static void main(String[] args) throws IOException {
-     // inicia o servidor
-     new Servidor(12345).executa();
-   }
    
    private int porta;
    private List<PrintStream> clientes;
@@ -32,7 +28,7 @@ public class Servidor {
    
    public void executa () throws IOException {
      ServerSocket servidor = new ServerSocket(this.porta);
-     System.out.println("Porta 12345 aberta!");
+     System.out.println("Porta "+ this.porta +" aberta!");
      
      while (true) {
        // aceita um cliente
