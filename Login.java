@@ -1,4 +1,4 @@
-//Fonte Principal: https://www.geeksforgeeks.org/java-swing-simple-user-registration-form/?ref=rp
+//Fonte Princportal: https://www.geeksforgeeks.org/java-swing-simple-user-registration-form/?ref=rp
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -6,9 +6,10 @@ import java.awt.event.*;
 public class Login extends JFrame
 implements ActionListener {
 	// Components of the Form
+    private JFrame frame;
 	private Container c;
 	private JLabel loginText;
-    private JLabel t_ip;
+    private JLabel t_port;
     private JLabel t_nome;
     private JLabel t_serve;
     private JLabel t_senha;
@@ -16,7 +17,7 @@ implements ActionListener {
     private JLabel text1;
     private JLabel text2;
 	private JTextField nome;
-    private JTextField ip;
+    private JTextField port;
 	private JTextField serve;
     private JPasswordField senha;
 	private JButton admBt;
@@ -27,6 +28,9 @@ implements ActionListener {
 	// with default values.
 	public Login()
 	{
+        frame = new JFrame();
+        c = frame.getContentPane();
+
 		setTitle("Registration Form");
 		setBounds(300, 90, 900, 600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -39,55 +43,54 @@ implements ActionListener {
 		loginText = new JLabel("Sign In");
 		loginText.setFont(new Font("Arial", Font.BOLD, 30));
 		loginText.setSize(300, 33);
-		loginText.setLocation(41, 78);
+		loginText.setLocation(41, 80);
 		c.add(loginText);
 
         t_nome = new JLabel("Nome:");
         t_nome.setFont(new Font("Arial", Font.PLAIN, 15));
         t_nome.setSize(63, 24);
         t_nome.setForeground(Color.GRAY);
-        t_nome.setLocation(41, 140);
+        t_nome.setLocation(41, 145);
         c.add(t_nome);
 
 		nome = new JTextField();
 		nome.setFont(new Font("Arial", Font.PLAIN, 13));
 		nome.setSize(365, 48);
-		nome.setLocation(41, 165);
+		nome.setLocation(41, 170);
         nome.setBorder(null);
         nome.setForeground(Color.DARK_GRAY);
         nome.setBackground(Color.LIGHT_GRAY);
 		c.add(nome);
 
-        t_ip = new JLabel("User IP:");
-        t_ip.setFont(new Font("Arial", Font.PLAIN, 15));
-        t_ip.setSize(63, 24);
-        t_ip.setForeground(Color.GRAY);
-        t_ip.setLocation(41, 218);
-        c.add(t_ip);
-
-        ip = new JTextField();
-        ip.setEnabled(false);
-		ip.setFont(new Font("Arial", Font.PLAIN, 12));
-		ip.setSize(174, 28);
-        ip.setBorder(null);
-		ip.setLocation(115, 218);
-        ip.setBackground(Color.LIGHT_GRAY);
-		c.add(ip);
-
-        t_serve = new JLabel("Server:");
+        t_serve = new JLabel("Servidor:");
         t_serve.setFont(new Font("Arial", Font.PLAIN, 15));
         t_serve.setForeground(Color.GRAY);
         t_serve.setSize(63, 24);
-        t_serve.setLocation(41, 278);
+        t_serve.setLocation(41, 240);
         c.add(t_serve);
 
 		serve = new JTextField();
 		serve.setFont(new Font("Arial", Font.PLAIN, 13));
 		serve.setSize(365, 48);
         serve.setBorder(null);
-		serve.setLocation(41, 303);
+		serve.setLocation(41, 265);
         serve.setBackground(Color.LIGHT_GRAY);
 		c.add(serve);
+
+        t_port = new JLabel("Porta:");
+        t_port.setFont(new Font("Arial", Font.PLAIN, 15));
+        t_port.setSize(63, 24);
+        t_port.setForeground(Color.GRAY);
+        t_port.setLocation(41, 320);
+        c.add(t_port);
+
+        port = new JTextField();
+		port.setFont(new Font("Arial", Font.PLAIN, 12));
+		port.setSize(175, 28);
+        port.setBorder(null);
+		port.setLocation(95, 320);
+        port.setBackground(Color.LIGHT_GRAY);
+		c.add(port);
 
 		envBt = new JButton("ENVIAR");
 		envBt.setFont(new Font("Arial", Font.BOLD, 15));
@@ -163,12 +166,15 @@ implements ActionListener {
 		}
 
         if (e.getSource() == envBt) {
-            String vazia = null;
-            nome.setText(vazia);
-            serve.setText(vazia);
-            senha.setText(vazia);
-            senha.setVisible(false);
-            t_senha.setForeground(Color.WHITE);
+            String u_nome;
+            int server;
+            int porta;
+
+            u_nome = nome.getText();
+            server = Integer.parseInt(serve.getText());
+            porta = Integer.parseInt(port.getText());
+
+            System.out.println(u_nome + server + porta);
         }
 
     }
