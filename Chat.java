@@ -5,6 +5,7 @@ import java.awt.event.*;
 public class Chat extends JFrame
 implements ActionListener {
 	// Components of the Form
+    private JFrame frame;
 	private Container c;
 
     private JLabel t_user;
@@ -23,12 +24,14 @@ implements ActionListener {
     private JTextField chat;
     private JTextField mensage;
 	private JButton m_envBt;
-    private JPanel bg_main;
 
 	// constructor, to initialize the components
 	// with default values.
 	public Chat()
 	{
+        frame = new JFrame();
+        c = frame.getContentPane();
+
 		setTitle("Registration Form");
 		setBounds(300, 90, 900, 600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -122,7 +125,7 @@ implements ActionListener {
         bg_top = new JPanel();
 		bg_top.setSize(609, 65);
         bg_top.setBackground(Color.decode("#CBBFE8"));
-		bg_top.setLocation(255, 25);
+		bg_top.setLocation(250, 25);
 		c.add(bg_top);
 
         //Painel main
@@ -130,7 +133,7 @@ implements ActionListener {
         mensage = new JTextField(" Insira sua mensagem aqui...");
 		mensage.setFont(new Font("Arial", Font.PLAIN, 13));
 		mensage.setSize(430, 45);
-		mensage.setLocation(255, 470);
+		mensage.setLocation(250, 470);
         mensage.setForeground(Color.DARK_GRAY);
         mensage.setBackground(Color.WHITE);
 		c.add(mensage);
@@ -138,7 +141,7 @@ implements ActionListener {
         m_envBt = new JButton("ENVIAR");
 		m_envBt.setFont(new Font("Arial", Font.BOLD, 15));
 		m_envBt.setSize(180, 45);
-		m_envBt.setLocation(685, 470);
+		m_envBt.setLocation(680, 470);
         m_envBt.setForeground(Color.WHITE);
         m_envBt.setBackground(Color.decode("#9882CD"));
 		m_envBt.addActionListener(this);
@@ -147,17 +150,12 @@ implements ActionListener {
         chat = new JTextField();
 		chat.setFont(new Font("Arial", Font.PLAIN, 13));
 		chat.setSize(610, 370);
-		chat.setLocation(255, 84);
+		chat.setLocation(250, 84);
         chat.setBorder(null);
         chat.setForeground(Color.DARK_GRAY);
         chat.setBackground(Color.WHITE);
         chat.setEditable(false);
 		c.add(chat);
-
-        bg_main = new JPanel();
-		bg_main.setSize(685, 600);
-		bg_main.setLocation(220, 0);
-		c.add(bg_main);
 
 		setVisible(true);
 	}
