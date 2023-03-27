@@ -2,6 +2,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.net.UnknownHostException;
 
 public class Login extends JFrame
 implements ActionListener {
@@ -23,6 +25,12 @@ implements ActionListener {
 	private JButton admBt;
 	private JButton envBt;
 	private JPanel bg_text;
+
+    public static String u_nome;
+    public static String server;
+    public static String s_adm;
+    public static int porta;
+    public static String fezLogin;
 
 	// constructor, to initialize the components
 	// with default values.
@@ -166,24 +174,41 @@ implements ActionListener {
 		}
 
         if (e.getSource() == envBt) {
-            String u_nome;
-            int server;
-            int porta;
 
+            s_adm = senha.getSelectedText();
             u_nome = nome.getText();
-            server = Integer.parseInt(serve.getText());
+            server = serve.getText();
             porta = Integer.parseInt(port.getText());
+            fezLogin = envBt.getText();
 
-            System.out.println(u_nome + server + porta);
         }
-
     }
 
 // Driver Code
-
-
 	public static void main(String[] args) throws Exception
 	{
-		Login f = new Login();
+		
+        boolean repete = true;
+
+        Login f = new Login();
+
+        while (repete == true){
+            
+            System.out.println(" ");
+
+            if(fezLogin == "ENVIAR"){
+
+                Chat chat = new Chat(u_nome, server, s_adm, porta);                
+                repete = false;
+                f.dispose();
+                
+            }
+
+            System.out.println(" ");
+
+        }
+        
+
+
 	}
 }

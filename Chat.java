@@ -25,9 +25,10 @@ implements ActionListener {
     private JTextField mensage;
 	private JButton m_envBt;
 
+
 	// constructor, to initialize the components
 	// with default values.
-	public Chat()
+	public Chat(String nome_us, String server, String senha_adm, int porta_sv)
 	{
         frame = new JFrame();
         c = frame.getContentPane();
@@ -50,7 +51,7 @@ implements ActionListener {
         t_ola.setLocation(32, 15);
         c.add(t_ola);
         
-        t_nome = new JLabel("......!");
+        t_nome = new JLabel(nome_us + "!");
         t_nome.setFont(new Font("Arial", Font.BOLD, 32));
         t_nome.setForeground(Color.WHITE);
         t_nome.setSize(165, 50);
@@ -78,6 +79,7 @@ implements ActionListener {
         users.setBorder(null);
         users.setForeground(Color.DARK_GRAY);
         users.setBackground(Color.WHITE);
+        users.setEditable(false);
 		c.add(users);
         
         bg_left = new JPanel();
@@ -88,17 +90,17 @@ implements ActionListener {
 
         //Painel Topo
 
-        t_adrres = new JLabel("Server addres: ");
+        t_adrres = new JLabel("Server address: ");
         t_adrres.setFont(new Font("Arial", Font.BOLD, 13));
-		t_adrres.setSize(100, 40);
-		t_adrres.setLocation(310, 35);
+		t_adrres.setSize(200, 40);
+		t_adrres.setLocation(309, 35);
         t_adrres.setForeground(Color.darkGray);
 		c.add(t_adrres);
 
-        n_adrres = new JTextField("x");
+        n_adrres = new JTextField(server);
 		n_adrres.setFont(new Font("Arial", Font.BOLD, 13));
-		n_adrres.setSize(50, 40);
-		n_adrres.setLocation(420, 35);
+		n_adrres.setSize(190, 40);
+		n_adrres.setLocation(425, 35);
         n_adrres.setBorder(null);
         n_adrres.setForeground(Color.DARK_GRAY);
         n_adrres.setBackground(Color.decode("#CBBFE8"));
@@ -108,14 +110,14 @@ implements ActionListener {
         t_Nuser = new JLabel("User Online: ");
         t_Nuser.setFont(new Font("Arial", Font.BOLD, 13));
 		t_Nuser.setSize(200, 40);
-		t_Nuser.setLocation(620, 35);
+		t_Nuser.setLocation(623, 35);
         t_Nuser.setForeground(Color.darkGray);
 		c.add(t_Nuser);
 
         n_user = new JTextField("x");
 		n_user.setFont(new Font("Arial", Font.BOLD, 13));
 		n_user.setSize(50, 40);
-		n_user.setLocation(720, 35);
+		n_user.setLocation(723, 35);
         n_user.setBorder(null);
         n_user.setForeground(Color.DARK_GRAY);
         n_user.setBackground(Color.decode("#CBBFE8"));
@@ -130,7 +132,7 @@ implements ActionListener {
 
         //Painel main
 
-        mensage = new JTextField(" Insira sua mensagem aqui...");
+        mensage = new JTextField();
 		mensage.setFont(new Font("Arial", Font.PLAIN, 13));
 		mensage.setSize(430, 45);
 		mensage.setLocation(250, 470);
@@ -173,11 +175,5 @@ implements ActionListener {
 
     }
 
-// Driver Code
 
-
-	public static void main(String[] args) throws Exception
-	{
-		Chat f = new Chat();
-	}
 }
