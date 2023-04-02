@@ -26,12 +26,6 @@ implements ActionListener {
 	private JButton envBt;
 	private JPanel bg_text;
 
-    public static String u_nome;
-    public static String server;
-    public static String s_adm;
-    public static int porta;
-    public static String fezLogin;
-
 	// constructor, to initialize the components
 	// with default values.
 	public Login()
@@ -168,47 +162,49 @@ implements ActionListener {
 	// by the user and act accordingly
 	public void actionPerformed(ActionEvent e)
 	{
+        Gerenciador manager = new Gerenciador();
+
         if (e.getSource() == admBt) {
                 senha.setVisible(true);
                 t_senha.setForeground(Color.DARK_GRAY);
 		}
 
         if (e.getSource() == envBt) {
+            String u_nome, server;
+            int porta;
 
-            s_adm = senha.getSelectedText();
             u_nome = nome.getText();
             server = serve.getText();
-            porta = Integer.parseInt(port.getText());
-            fezLogin = envBt.getText();
+            porta =  Integer.parseInt(port.getText());
 
+            //Logar usário com dados
+            try {
+                manager.client(server, porta, u_nome);
+            } catch (UnknownHostException e1) {
+                e1.printStackTrace();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+
+            String s;
+            s = senha.getSelectedText();
+            if(s == "admServer"){
+            //Logar Servidor
+            try {
+                manager.server(porta);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            }
         }
+
     }
 
 // Driver Code
+
+
 	public static void main(String[] args) throws Exception
 	{
-		
-        boolean repete = true;
-
-        Login f = new Login();
-
-        while (repete == true){
-            
-            System.out.println(" ");
-
-            if(fezLogin == "ENVIAR"){
-
-                Chat chat = new Chat(u_nome, server, s_adm, porta);                
-                repete = false;
-                f.dispose();
-                
-            }
-
-            System.out.println(" ");
-
-        }
-        
-
-
+		Login f = new Login();
 	}
 }
