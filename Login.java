@@ -2,14 +2,15 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
-import java.net.UnknownHostException;
+import java.net.InetAddress;
+import java.net.*;
+
 
 public class Login extends JFrame
 implements ActionListener {
-	// Components of the Form
+	// Componentes do Login
     private JFrame frame;
-	private Container c;
+	private Container container;
 	private JLabel loginText;
     private JLabel t_port;
     private JLabel t_nome;
@@ -24,187 +25,271 @@ implements ActionListener {
     private JPasswordField senha;
 	private JButton admBt;
 	private JButton envBt;
+    private JButton userBt;
 	private JPanel bg_text;
 
-	// constructor, to initialize the components
-	// with default values.
+    public static String u_nome;
+    public static String server;
+    public static String s_adm;
+    public static int porta;
+    public static String fezLogin;
+    public static boolean admin;
+
 	public Login()
 	{
         frame = new JFrame();
-        c = frame.getContentPane();
+        container = frame.getContentPane();
 
 		setTitle("Registration Form");
 		setBounds(300, 90, 900, 600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 
-		c = getContentPane();
-		c.setLayout(null);
-        c.setBackground(Color.WHITE);
+		container = getContentPane();
+		container.setLayout(null);
+        container.setBackground(Color.WHITE);
 
-		loginText = new JLabel("Sign In");
-		loginText.setFont(new Font("Arial", Font.BOLD, 30));
-		loginText.setSize(300, 33);
-		loginText.setLocation(41, 80);
-		c.add(loginText);
+        //Campo de entrada e legenda NOME
+            t_nome = new JLabel("Nome:");     
+            nome = new JTextField();               
+            //Personalizações Nome
+            style_label(t_nome,15);
+            t_nome.setLocation(41, 145);
+            container.add(t_nome);
 
-        t_nome = new JLabel("Nome:");
-        t_nome.setFont(new Font("Arial", Font.PLAIN, 15));
-        t_nome.setSize(63, 24);
-        t_nome.setForeground(Color.GRAY);
-        t_nome.setLocation(41, 145);
-        c.add(t_nome);
+            style_input(nome);
+            nome.setSize(365, 48);  
+            nome.setLocation(41, 170);
+            container.add(nome);  
+                        
 
-		nome = new JTextField();
-		nome.setFont(new Font("Arial", Font.PLAIN, 13));
-		nome.setSize(365, 48);
-		nome.setLocation(41, 170);
-        nome.setBorder(null);
-        nome.setForeground(Color.DARK_GRAY);
-        nome.setBackground(Color.LIGHT_GRAY);
-		c.add(nome);
+        //Campo de entrada e legenda SERVIDOR
+            t_serve = new JLabel("Servidor:");       
+            serve = new JTextField();      
+            //Personalizações Endereço Servidor
+            style_label(t_serve,15);
+            t_serve.setLocation(41, 240);
+            container.add(t_serve);
 
-        t_serve = new JLabel("Servidor:");
-        t_serve.setFont(new Font("Arial", Font.PLAIN, 15));
-        t_serve.setForeground(Color.GRAY);
-        t_serve.setSize(63, 24);
-        t_serve.setLocation(41, 240);
-        c.add(t_serve);
+            style_input(serve);
+            serve.setSize(365, 48);  
+            serve.setLocation(41, 265);
+            container.add(serve);      
 
-		serve = new JTextField();
-		serve.setFont(new Font("Arial", Font.PLAIN, 13));
-		serve.setSize(365, 48);
-        serve.setBorder(null);
-		serve.setLocation(41, 265);
-        serve.setBackground(Color.LIGHT_GRAY);
-		c.add(serve);
 
-        t_port = new JLabel("Porta:");
-        t_port.setFont(new Font("Arial", Font.PLAIN, 15));
-        t_port.setSize(63, 24);
-        t_port.setForeground(Color.GRAY);
-        t_port.setLocation(41, 320);
-        c.add(t_port);
+        //Campo de entrada e legenda PORTA
+            t_port = new JLabel("Porta:");      
+            port = new JTextField();                
+            //Personalizações Porta do servidor
+            style_label(t_port,15);
+            t_port.setLocation(41, 320);
+            container.add(t_port);
 
-        port = new JTextField();
-		port.setFont(new Font("Arial", Font.PLAIN, 12));
-		port.setSize(175, 28);
-        port.setBorder(null);
-		port.setLocation(95, 320);
-        port.setBackground(Color.LIGHT_GRAY);
-		c.add(port);
+            style_input(port);
+            port.setSize(175, 28);
+            port.setLocation(95, 320);
+            container.add(port);
 
-		envBt = new JButton("ENVIAR");
-		envBt.setFont(new Font("Arial", Font.BOLD, 15));
-		envBt.setSize(190, 45);
-		envBt.setLocation(119, 410);
-        envBt.setForeground(Color.WHITE);
-        envBt.setBackground(Color.decode("#9882CD"));
-		envBt.addActionListener(this);
-		c.add(envBt);
 
-        t_adm = new JLabel("Logar como ADM Servidor");
-        t_adm.setFont(new Font("Arial", Font.PLAIN, 12));
-        t_adm.setSize(200, 24);
-        t_adm.setForeground(Color.DARK_GRAY);
-        t_adm.setLocation(152, 455);
-        c.add(t_adm);
+        //Botão de IDENTIFICAÇÃO ADM para logar e legenda
+            t_adm = new JLabel("Logar como ADM Servidor");    
+            admBt = new JButton();                                 
+            //Personalizações botão identificação adm         
+            style_label(t_adm, 12);
+            t_adm.setLocation(152, 455);
+            container.add(t_adm);
 
-        admBt = new JButton();
-		admBt.setSize(10, 10);
-        admBt.setBackground(Color.GRAY);
-		admBt.setLocation(132, 461);
-        admBt.addActionListener(this);
-		c.add(admBt);
+            admBt.setSize(10, 10);
+            admBt.setBackground(Color.GRAY);
+            admBt.setLocation(132, 461);
+            admBt.addActionListener(this);
+            container.add(admBt);  
+
+            userBt = new JButton();   
+            userBt.setSize(10, 10);
+            userBt.setBackground(Color.GRAY);
+            userBt.setLocation(132, 461);
+            userBt.setVisible(false);
+            userBt.addActionListener(this);
+            container.add(userBt);  
+
+            
+        //Campo de entrada e legenda SENHA ADM    
+            t_senha = new JLabel("Senha ADM:");     
+            senha = new JPasswordField();             
+            //Personalizações senha adm   
+            style_label(t_senha, 15);
+            t_senha.setLocation(41, 145);
+            t_senha.setVisible(false);
+            container.add(t_senha);
+
+            senha.setFont(new Font("Arial", Font.PLAIN, 13));
+            senha.setSize(365, 48);  
+            senha.setLocation(41, 170);
+            senha.setBorder(null);
+            senha.setBackground(Color.decode("#E3DCF1"));
+            senha.setVisible(false);
+            container.add(senha);
+            
+        //Botão para ENVIO do formulário
+            envBt = new JButton("ENVIAR");
+            //Personalizações botão de envio
+            envBt.setFont(new Font("Arial", Font.BOLD, 15));
+            envBt.setSize(190, 45);
+            envBt.setLocation(119, 410);
+            envBt.setForeground(Color.WHITE);
+            envBt.setBackground(Color.decode("#9882CD"));
+            envBt.addActionListener(this);
+            container.add(envBt);
+
+        //Textos
+            textos_in();
+
+		setVisible(true);
+	}
+
+    public void Version(JLabel legendas, JTextField input, boolean estado) {
+        legendas.setVisible(estado);
+        input.setVisible(estado);
+        input.setEditable(estado);
+    }
+    
+    //obtém a ação executada pelo usuário e age de acordo
+	public void actionPerformed(ActionEvent acao)
+	{
+        if (acao.getSource() == admBt) { 
+            senha.setVisible(true);
+            t_senha.setVisible(true);
+            t_adm.setText("Logar como usuario");
+            Version(t_nome, nome, false);
+            Version(t_port, port, false);
+            t_serve.setText("Porta do Servidor:");
+            text2.setText("ADMIN: Insira seus dados e crie um servidor");
+            admBt.setVisible(false);
+            userBt.setVisible(true);
+        }
+
+        if (acao.getSource() == userBt) { 
+            senha.setVisible(false);
+            t_senha.setVisible(false);
+            t_adm.setText("Logar como ADM Servidor");
+            Version(t_nome, nome, true);
+            Version(t_port, port, true);
+            t_port.setText("Porta");
+            t_serve.setText("Servidor:");
+            text2.setText("Insira seus dados e entre em um bate-papo");
+            admBt.setVisible(true);
+            userBt.setVisible(false);
+        }
+
+            if (acao.getSource() == envBt) {
+                if(senha.getPassword().length >= 1){
+                    s_adm = new String(senha.getPassword());
+        
+                t_port.setVisible(true);
+                if(s_adm.equals("adm")){
+                    admin = true;
+                }else{
+                    t_port.setText("Senha Incorreta!");
+                    serve.setText("");
+                    senha.setText("");
+                }    
+            }
+
+            if(admin == false){
+            //pega do campo texto e transfere para uma variável
+            u_nome = nome.getText();
+            server = serve.getText();
+            porta = Integer.parseInt(port.getText());
+            fezLogin = envBt.getText();
+            
+            }else{
+                u_nome = "Administrador";
+                porta = Integer.parseInt(serve.getText());
+                fezLogin = envBt.getText();
+                try {
+                    server = InetAddress.getLocalHost().getHostAddress(); 
+                    } catch (UnknownHostException e) {
+                    e.printStackTrace();
+                }
+                
+            }   
+            
+            nome.setText("");
+            serve.setText("");
+            port.setText("");
+            senha.setText("");         
+        }
+    }
+
+    public void style_label(JLabel legenda, int size){
+        legenda.setFont(new Font("Arial", Font.PLAIN, size));     //Fonte
+        legenda.setForeground(Color.GRAY);                             //Cor Fonte
+        legenda.setSize(180, 24);                         //Tamanho
+    }
+
+    public void style_input(JTextField campoT){
+        campoT.setFont(new Font("Arial", Font.PLAIN, 13));  //Fonte
+        campoT.setBorder(null);                                //Borda
+        campoT.setForeground(Color.DARK_GRAY);                        //Cor Fonte
+        campoT.setBackground(Color.LIGHT_GRAY);                       //Cor de Fundo
+    }
+
+    public void textos_in(){
+       //Personalizações Textos 
+        loginText = new JLabel("Sign In");
+        loginText.setFont(new Font("Arial", Font.BOLD, 30));
+        loginText.setSize(300, 33);
+        loginText.setLocation(41, 80);
+        container.add(loginText);
 
         text1 = new JLabel("Bem-Vinda(o)!");
         text1.setFont(new Font("Arial", Font.BOLD, 40));
         text1.setForeground(Color.WHITE);
         text1.setSize(340, 87);
         text1.setLocation(530, 215);
-        c.add(text1);
-
+        container.add(text1);
+        
         text2 = new JLabel("Insira seus dados e entre em um bate-papo");
         text2.setFont(new Font("Arial", Font.PLAIN, 17));
         text2.setForeground(Color.WHITE);
         text2.setSize(390, 80);
         text2.setLocation(505, 260);
-        c.add(text2);
+        container.add(text2);
 
+        //background Painel Direito
         bg_text = new JPanel();
-		bg_text.setSize(450, 600);
+        bg_text.setSize(450, 600);
         bg_text.setBackground(Color.decode("#9882CD"));
-		bg_text.setLocation(450, 0);
-		c.add(bg_text);
-
-        t_senha = new JLabel("Senha ADM:");
-        t_senha.setFont(new Font("Arial", Font.PLAIN, 11));
-        t_senha.setSize(63, 24);
-        t_senha.setForeground(Color.WHITE);
-        t_senha.setLocation(180, 360);
-        c.add(t_senha);
-
-        senha = new JPasswordField();
-		senha.setFont(new Font("Arial", Font.CENTER_BASELINE, 11));
-		senha.setSize(130, 25);
-		senha.setLocation(150, 380);
-        senha.setBorder(null);
-        senha.setBackground(Color.decode("#E3DCF1"));
-        senha.setVisible(false);
-		c.add(senha);
-        
-
-		setVisible(true);
-	}
-
-	// method actionPerformed()
-	// to get the action performed
-	// by the user and act accordingly
-	public void actionPerformed(ActionEvent e)
-	{
-        Gerenciador manager = new Gerenciador();
-
-        if (e.getSource() == admBt) {
-                senha.setVisible(true);
-                t_senha.setForeground(Color.DARK_GRAY);
-		}
-
-        if (e.getSource() == envBt) {
-            String u_nome, server;
-            int porta;
-
-            u_nome = nome.getText();
-            server = serve.getText();
-            porta =  Integer.parseInt(port.getText());
-
-            //Logar usário com dados
-            try {
-                manager.client(server, porta, u_nome);
-            } catch (UnknownHostException e1) {
-                e1.printStackTrace();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-
-            String s;
-            s = senha.getSelectedText();
-            if(s == "admServer"){
-            //Logar Servidor
-            try {
-                manager.server(porta);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-            }
-        }
-
+        bg_text.setLocation(450, 0);
+        container.add(bg_text);
     }
 
-// Driver Code
 
-
-	public static void main(String[] args) throws Exception
+	public static void main(String[] args) 
 	{
-		Login f = new Login();
+		
+        boolean repete = true;
+
+        Login f = new Login();
+
+        while (repete == true){
+            
+            System.out.println(server);
+
+            if(fezLogin == "ENVIAR"){
+
+                Chat chat = new Chat(u_nome, server, admin, porta);                
+                repete = false;
+                f.dispose();
+                
+            }
+
+            System.out.print("");
+
+        }
+        
+
+
 	}
 }

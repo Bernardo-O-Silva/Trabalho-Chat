@@ -6,178 +6,179 @@ public class Chat extends JFrame
 implements ActionListener {
 	// Components of the Form
     private JFrame frame;
-	private Container c;
+	private Container container;
 
-    private JLabel t_user;
     private JLabel t_ola;
-    private JLabel t_left;
     private JLabel t_nome;
-    private JPanel bg_left;
-    private JTextField users;
 
+    private JLabel t_server;
     private JLabel t_adrres;
-	private JLabel t_Nuser;
+	private JLabel t_port;
 	private JTextField n_adrres;
-	private JTextField n_user;
+	private JTextField n_port;
     private JPanel bg_top;
 
     private JTextField chat;
     private JTextField mensage;
 	private JButton m_envBt;
 
+    public String nome_user;
+    public String adr_server;
+    public int port_server;
+    public boolean admin;
 	// constructor, to initialize the components
 	// with default values.
-	public Chat()
+	public Chat(String nome_us, String server, Boolean adm_server, int porta_sv)
 	{
-        frame = new JFrame();
-        c = frame.getContentPane();
+        nome_user = nome_us;
+        adr_server = server;
+        port_server = porta_sv;
+        admin = adm_server;
 
-		setTitle("Registration Form");
+        frame = new JFrame();
+        container = frame.getContentPane();
+
+		setTitle("Chat");
 		setBounds(300, 90, 900, 600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 
-		c = getContentPane();
-		c.setLayout(null);
-        c.setBackground(Color.decode("#EDEDED"));
+		container = getContentPane();
+		container.setLayout(null);
+        container.setBackground(Color.decode("#DACCDD"));
 
         //Painel Lateral
+        t_ola = new JLabel("Oi,"); 
+        t_nome = new JLabel(nome_user + "!");
 
-        t_ola = new JLabel("Oi,");
-        t_ola.setFont(new Font("Arial", Font.BOLD, 40));
+        t_ola.setFont(new Font("Arial", Font.BOLD, 32));
         t_ola.setSize(165, 40);
         t_ola.setForeground(Color.WHITE);
-        t_ola.setLocation(32, 15);
-        c.add(t_ola);
-        
-        t_nome = new JLabel("......!");
-        t_nome.setFont(new Font("Arial", Font.BOLD, 32));
+        t_ola.setLocation(90, 15);
+        container.add(t_ola);
+       
+        t_nome.setFont(new Font("Arial", Font.BOLD, 42));
         t_nome.setForeground(Color.WHITE);
-        t_nome.setSize(165, 50);
-        t_nome.setLocation(32, 60);
-        c.add(t_nome);
+        t_nome.setSize(250, 50);
+        t_nome.setLocation(90, 50);
+        container.add(t_nome);
         
-        t_left = new JLabel("Participe do bate-papo");
-        t_left.setFont(new Font("Arial", Font.PLAIN, 15));
-        t_left.setForeground(Color.WHITE);
-        t_left.setSize(165, 50);
-        t_left.setLocation(32, 93);
-        c.add(t_left);
-
-        t_user = new JLabel("Usuarios:");
-        t_user.setFont(new Font("Arial", Font.BOLD, 18));
-        t_user.setSize(170, 30);
-        t_user.setForeground(Color.WHITE);
-        t_user.setLocation(32, 150);
-        c.add(t_user);
-
-		users = new JTextField();
-		users.setFont(new Font("Arial", Font.PLAIN, 14));
-		users.setSize(170, 360);
-		users.setLocation(23, 180);
-        users.setBorder(null);
-        users.setForeground(Color.DARK_GRAY);
-        users.setBackground(Color.WHITE);
-		c.add(users);
-        
-        bg_left = new JPanel();
-		bg_left.setSize(219, 600);
-        bg_left.setBackground(Color.decode("#9882CD"));
-		bg_left.setLocation(0, 0);
-		c.add(bg_left);
-
         //Painel Topo
+        t_server = new JLabel("   Servidor"); 
 
-        t_adrres = new JLabel("Server addres: ");
-        t_adrres.setFont(new Font("Arial", Font.BOLD, 13));
-		t_adrres.setSize(100, 40);
-		t_adrres.setLocation(310, 35);
-        t_adrres.setForeground(Color.darkGray);
-		c.add(t_adrres);
+        t_adrres = new JLabel("  Address: ");
+        n_adrres = new JTextField(adr_server);
+        
+        t_port = new JLabel("  Port:"); 
+        n_port = new JTextField(String.valueOf(port_server));
 
-        n_adrres = new JTextField("x");
-		n_adrres.setFont(new Font("Arial", Font.BOLD, 13));
-		n_adrres.setSize(50, 40);
-		n_adrres.setLocation(420, 35);
+        t_server.setFont(new Font("Arial", Font.BOLD, 17));
+		t_server.setSize(405, 35);
+		t_server.setLocation(360, 15);
+        t_server.setOpaque(true);
+        t_server.setBackground(Color.WHITE);
+        t_server.setForeground(Color.decode("#9882CD"));
+		container.add(t_server);
+
+        t_adrres.setFont(new Font("Arial", Font.BOLD, 16));
+		t_adrres.setSize(90, 30);
+		t_adrres.setLocation(360, 55);
+        t_adrres.setForeground(Color.WHITE);
+        t_adrres.setOpaque(true);
+        t_adrres.setBackground(Color.decode("#CBBFE8"));
+		container.add(t_adrres);
+     
+		n_adrres.setFont(new Font("Arial", Font.BOLD, 15));
+		n_adrres.setSize(120, 20);
+		n_adrres.setLocation(455, 58);
         n_adrres.setBorder(null);
-        n_adrres.setForeground(Color.DARK_GRAY);
-        n_adrres.setBackground(Color.decode("#CBBFE8"));
+        n_adrres.setForeground(Color.WHITE);
+        n_adrres.setBackground(Color.decode("#9882CD"));
         n_adrres.setEditable(false);
-		c.add(n_adrres);
+		container.add(n_adrres);
+       
+        t_port.setFont(new Font("Arial", Font.BOLD, 16));
+		t_port.setSize(60, 30);
+		t_port.setLocation(600, 55);
+        t_port.setForeground(Color.WHITE);
+        t_port.setOpaque(true);
+        t_port.setBackground(Color.decode("#CBBFE8"));
+		container.add(t_port);
 
-        t_Nuser = new JLabel("User Online: ");
-        t_Nuser.setFont(new Font("Arial", Font.BOLD, 13));
-		t_Nuser.setSize(200, 40);
-		t_Nuser.setLocation(620, 35);
-        t_Nuser.setForeground(Color.darkGray);
-		c.add(t_Nuser);
-
-        n_user = new JTextField("x");
-		n_user.setFont(new Font("Arial", Font.BOLD, 13));
-		n_user.setSize(50, 40);
-		n_user.setLocation(720, 35);
-        n_user.setBorder(null);
-        n_user.setForeground(Color.DARK_GRAY);
-        n_user.setBackground(Color.decode("#CBBFE8"));
-        n_user.setEditable(false);
-		c.add(n_user);
+		n_port.setFont(new Font("Arial", Font.BOLD, 15));
+		n_port.setSize(120, 20);
+		n_port.setLocation(665, 60);
+        n_port.setBorder(null);
+        n_port.setForeground(Color.WHITE);
+        n_port.setBackground(Color.decode("#9882CD"));
+        n_port.setEditable(false);
+		container.add(n_port);
         
         bg_top = new JPanel();
-		bg_top.setSize(609, 65);
-        bg_top.setBackground(Color.decode("#CBBFE8"));
-		bg_top.setLocation(250, 25);
-		c.add(bg_top);
+		bg_top.setSize(900, 110);
+        bg_top.setBackground(Color.decode("#9882CD"));
+		bg_top.setLocation(0, 0);
+		container.add(bg_top);
 
         //Painel main
+        mensage = new JTextField();
+        m_envBt = new JButton("ENVIAR");
 
-        mensage = new JTextField(" Insira sua mensagem aqui...");
+        chat = new JTextField();
+
 		mensage.setFont(new Font("Arial", Font.PLAIN, 13));
-		mensage.setSize(430, 45);
-		mensage.setLocation(250, 470);
+		mensage.setSize(620, 45);
+		mensage.setLocation(40, 490);
         mensage.setForeground(Color.DARK_GRAY);
         mensage.setBackground(Color.WHITE);
-		c.add(mensage);
-
-        m_envBt = new JButton("ENVIAR");
+		container.add(mensage);
+     
 		m_envBt.setFont(new Font("Arial", Font.BOLD, 15));
-		m_envBt.setSize(180, 45);
-		m_envBt.setLocation(680, 470);
+		m_envBt.setSize(200, 45);
+		m_envBt.setLocation(650, 490);
         m_envBt.setForeground(Color.WHITE);
         m_envBt.setBackground(Color.decode("#9882CD"));
 		m_envBt.addActionListener(this);
-		c.add(m_envBt);
-
-        chat = new JTextField();
+		container.add(m_envBt);
+ 
 		chat.setFont(new Font("Arial", Font.PLAIN, 13));
-		chat.setSize(610, 370);
-		chat.setLocation(250, 84);
+		chat.setSize(810, 350);
+		chat.setLocation(40, 125);
         chat.setBorder(null);
         chat.setForeground(Color.DARK_GRAY);
         chat.setBackground(Color.WHITE);
         chat.setEditable(false);
-		c.add(chat);
+		container.add(chat);
+
+        System.out.print(admin);
+        if(admin == true){
+            mensage.setVisible(false);
+            mensage.setEditable(false);
+            m_envBt.setText("Fechar Servidor");
+            m_envBt.setBackground(Color.decode("#FF7878"));
+		    m_envBt.addActionListener(this);
+        }
 
 		setVisible(true);
-	}
 
+	}
 	// method actionPerformed()
 	// to get the action performed
 	// by the user and act accordingly
 	public void actionPerformed(ActionEvent e)
 	{
 
-
-        if (e.getSource() == m_envBt) {
-            //enviar mensagem ao servidor
+        if(admin == false){
+            if (e.getSource() == m_envBt) {
+                //enviar mensagem ao servidor
+            }
+        }   else{
+            if (e.getSource() == m_envBt) {
+                //enviar mensagem ao servidor
+            }
         }
 
     }
 
-// Driver Code
 
-
-	public static void main(String[] args) throws Exception
-	{
-		Chat f = new Chat();
-	}
 }
