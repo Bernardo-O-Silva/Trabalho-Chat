@@ -27,6 +27,7 @@ implements ActionListener {
 	private JButton envBt;
     private JButton userBt;
 	private JPanel bg_text;
+    //private Chat chat;
 
     public static String u_nome;
     public static String server;
@@ -146,6 +147,25 @@ implements ActionListener {
             textos_in();
 
 		setVisible(true);
+
+        boolean repete = true;
+
+        while (repete == true){
+
+            
+            System.out.println("");
+
+            if(fezLogin == "ENVIAR"){
+                
+                this.dispose();
+                repete = false;
+                
+            }
+
+            System.out.println("");
+
+        }
+
 	}
 
     public void Version(JLabel legendas, JTextField input, boolean estado) {
@@ -265,31 +285,35 @@ implements ActionListener {
         container.add(bg_text);
     }
 
+    public boolean getAdmin(){
 
-	public static void main(String[] args) 
-	{
-		
-        boolean repete = true;
+        return this.admin;
 
-        Login f = new Login();
+    }
 
-        while (repete == true){
-            
-            System.out.println(server);
+    public int getPorta(){
 
-            if(fezLogin == "ENVIAR"){
+        return this.porta;
 
-                Chat chat = new Chat(u_nome, server, admin, porta);                
-                repete = false;
-                f.dispose();
-                
-            }
+    }
 
-            System.out.print("");
+    public String getNome(){
 
-        }
-        
+        return this.u_nome;
 
+    }
 
-	}
+    public String getIP(){
+
+        return this.server;
+
+    }
+
+    /*
+    public void setMessage(String msg){
+
+        this.chat.setMessage(msg);
+
+    }
+    */
 }

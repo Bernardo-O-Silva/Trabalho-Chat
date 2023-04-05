@@ -10,23 +10,25 @@ import java.util.Scanner;
 
 public class Gerenciador {
 
+    Servidor server;
+    Cliente client;
+
     public void server(int hostPort) throws IOException{
     
         // inicia o servidor
-        Servidor server = new Servidor(hostPort);
+        this.server = new Servidor(hostPort);
         
-        server.executa();
+        this.server.executa();
 
     }    
 
     public void client(String ipServer, int hostPort, String username) throws UnknownHostException, IOException{
  
         // dispara cliente
-        Cliente client = new Cliente(ipServer, hostPort, username);
+        this.client = new Cliente(ipServer, hostPort, username);
         
-        client.executa();
+        this.client.executa();
     
     }
-
 
 }

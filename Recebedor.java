@@ -7,6 +7,7 @@
 import java.io.InputStream;
 import java.util.Scanner;
 
+
 /**
  *
  * @author Virginia
@@ -14,17 +15,19 @@ import java.util.Scanner;
 public class Recebedor implements Runnable {
  
    private InputStream servidor;
- 
-   public Recebedor(InputStream servidor) {
+   private Cliente clienteAUX;
+
+   public Recebedor(InputStream servidor, Cliente client) {
      this.servidor = servidor;
+     this.clienteAUX = client;
    }
  
    @Override
    public void run() {
-     // recebe msgs do servidor e imprime na tela
+    // recebe msgs do servidor e imprime na tela
      Scanner s = new Scanner(this.servidor);
      while (s.hasNextLine()) {
-       System.out.println(s.nextLine());
+       this.clienteAUX.setMessageInterface(" "+s.nextLine());
      }
      s.close();
    }

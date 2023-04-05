@@ -20,6 +20,8 @@ public class Servidor {
    
    private int porta;
    private List<PrintStream> clientes;
+   private String msg;
+   private Chat interfaceServer;
    
    public Servidor (int porta) {
      this.porta = porta;
@@ -28,15 +30,17 @@ public class Servidor {
    
    public void executa () throws IOException {
      ServerSocket servidor = new ServerSocket(this.porta);
-     System.out.println("Porta "+ this.porta +" aberta!");
+     this.msg = "  Porta "+ this.porta +" aberta!";
+     /*Chat*/ interfaceServer = new Chat("Admin", servidor.getInetAddress().getHostAddress(), true, this.porta);
+     
+     interfaceServer.setMessage(this.msg);
      
      while (true) {
        // aceita um cliente
        Socket cliente = servidor.accept();
-       System.out.println("Nova conexão com o cliente " +   
-         cliente.getInetAddress().getHostAddress()
-       );
-       
+       this.msg = "  Nova conexão com o cliente " + cliente.getInetAddress().getHostAddress();
+       interfaceServer.setMessage(this.msg);
+
        // adiciona saida do cliente à lista
        PrintStream ps = new PrintStream(cliente.getOutputStream());
        this.clientes.add(ps);

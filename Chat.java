@@ -18,9 +18,13 @@ implements ActionListener {
 	private JTextField n_port;
     private JPanel bg_top;
 
-    private JTextField chat;
+    private JTextArea chat;
+    private JScrollPane scroll;
     private JTextField mensage;
 	private JButton m_envBt;
+
+    private String digitado;
+    private boolean jaEnviou = false;
 
     public String nome_user;
     public String adr_server;
@@ -124,7 +128,8 @@ implements ActionListener {
         mensage = new JTextField();
         m_envBt = new JButton("ENVIAR");
 
-        chat = new JTextField();
+        chat = new JTextArea();
+        
 
 		mensage.setFont(new Font("Arial", Font.PLAIN, 13));
 		mensage.setSize(620, 45);
@@ -148,9 +153,16 @@ implements ActionListener {
         chat.setForeground(Color.DARK_GRAY);
         chat.setBackground(Color.WHITE);
         chat.setEditable(false);
-		container.add(chat);
+        
+        scroll = new JScrollPane(chat);
+        
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        System.out.print(admin);
+        scroll.setBounds(40, 125, 810, 350);
+
+
+        container.add(scroll);
+
         if(admin == true){
             mensage.setVisible(false);
             mensage.setEditable(false);
@@ -170,7 +182,9 @@ implements ActionListener {
 
         if(admin == false){
             if (e.getSource() == m_envBt) {
-                //enviar mensagem ao servidor
+                this.digitado = mensage.getText();
+                this.mensage.setText("");
+                this.jaEnviou = true;
             }
         }   else{
             if (e.getSource() == m_envBt) {
@@ -180,5 +194,35 @@ implements ActionListener {
 
     }
 
+    public void setMessage(String msg){
+
+        this.chat.append(msg+"\n");
+
+    }
+
+    public String getDigitado(){
+
+        this.jaEnviou = false;
+        return this.digitado;
+
+    }
+
+    public void setNull(){
+
+        this.digitado = null;
+
+    }
+
+    public boolean foiEnviado(){
+
+        return this.jaEnviou;
+
+    }
+
+    public JTextField getTxt(){
+
+        return this.mensage;
+
+    }    
 
 }

@@ -1,5 +1,3 @@
-
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -18,6 +16,8 @@ public class Cliente {
    private String host;
    private int porta;
    private String username;
+   private Chat interfaceClient;
+   private boolean repete = true;
    
    public Cliente (String host, int porta, String username) {
      this.host = host;
@@ -26,22 +26,51 @@ public class Cliente {
    }
    
    public void executa() throws UnknownHostException, IOException {
-     Socket cliente = new Socket(this.host, this.porta);
-     System.out.println("O cliente se conectou ao servidor!");
+     
+    try {
+
+      Socket cliente = new Socket(this.host, this.porta);
+      this.interfaceClient = new Chat(this.username, this.host, false, this.porta);
+
+      this.interfaceClient.setMessage(" "+this.username +" se conectou ao servidor!");
  
-     // thread para receber mensagens do servidor
-     Recebedor r = new Recebedor(cliente.getInputStream());
-     new Thread(r).start();
+      // thread para receber mensagens do servidor
+      Recebedor r = new Recebedor(cliente.getInputStream(), this);
+      new Thread(r).start();
      
-     // lê msgs do teclado e manda pro servidor
-     Scanner teclado = new Scanner(System.in);
-     PrintStream saida = new PrintStream(cliente.getOutputStream());
-     while (teclado.hasNextLine()) {
-       saida.println(this.username+ ": " +teclado.nextLine());
-     }
+      // lê msgs do teclado e manda pro servidor
+      Scanner teclado = new Scanner(System.in);
+      PrintStream saida = new PrintStream(cliente.getOutputStream());
+      while (repete == true) {
+        
+        System.out.println("");
+        
+        if(this.interfaceClient.foiEnviado() == true){
+          
+          saida.println(this.username+ ": " +this.interfaceClient.getDigitado());
+
+        }
+          
+       
+      }
      
-     saida.close();
-     teclado.close();
-     cliente.close();    
+      
+      saida.close();
+      teclado.close();
+      cliente.close();   
+
+    } catch(IOException exception){
+
+      System.out.println("Oops");
+      this.interfaceClient = new Chat(" ", " ", false, 0);
+
+    }
+
+   }
+
+   public void setMessageInterface(String msg){
+
+    this.interfaceClient.setMessage(msg);
+
    }
  }

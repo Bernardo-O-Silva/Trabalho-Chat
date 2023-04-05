@@ -1,4 +1,3 @@
-import java.util.Scanner;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.ServerSocket;
@@ -19,36 +18,27 @@ public class MainTeste {
         String ipAdd;
         String username;
         Gerenciador manager = new Gerenciador();
+        Login telinha = new Login();
+        String msg;
 
-        teste = scan.nextBoolean();
+        teste = telinha.getAdmin();
+
+        porta = telinha.getPorta();
 
         if(teste == true){
 
-            System.out.print("Digite a porta do servidor: ");
-            porta = scan.nextInt();
             manager.server(porta);
+            
 
         }
         else if (teste == false){
 
-            scan.nextLine();
-
-            System.out.print("Digite o ip do servidor: ");
-            ipAdd = scan.nextLine();
-
-            System.out.print("Digite a porta do servidor: ");
-            porta = scan.nextInt();
-
-            scan.nextLine();
-
-            System.out.print("Digite seu nome de usuário: ");
-            username = scan.nextLine();
+            ipAdd = telinha.getIP();
+            username = telinha.getNome();
 
             manager.client(ipAdd, porta, username);
 
         }
-
-        scan.close();
 
     }
 
