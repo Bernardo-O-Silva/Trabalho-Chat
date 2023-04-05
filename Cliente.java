@@ -61,8 +61,8 @@ public class Cliente {
 
     } catch(IOException exception){
 
-      System.out.println("Oops");
-      this.interfaceClient = new Chat(" ", " ", false, 0);
+      this.interfaceClient = new Chat(" ", " ", true, 0);
+      this.interfaceClient.erro_in();
 
     }
 

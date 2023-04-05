@@ -22,6 +22,8 @@ public class Servidor {
    private List<PrintStream> clientes;
    private String msg;
    private Chat interfaceServer;
+   private ServerSocket servidor;
+   
    
    public Servidor (int porta) {
      this.porta = porta;
@@ -29,33 +31,59 @@ public class Servidor {
    }
    
    public void executa () throws IOException {
-     ServerSocket servidor = new ServerSocket(this.porta);
-     this.msg = "  Porta "+ this.porta +" aberta!";
-     /*Chat*/ interfaceServer = new Chat("Admin", servidor.getInetAddress().getHostAddress(), true, this.porta);
-     
-     interfaceServer.setMessage(this.msg);
-     
-     while (true) {
-       // aceita um cliente
-       Socket cliente = servidor.accept();
-       this.msg = "  Nova conexão com o cliente " + cliente.getInetAddress().getHostAddress();
-       interfaceServer.setMessage(this.msg);
-
-       // adiciona saida do cliente à lista
-       PrintStream ps = new PrintStream(cliente.getOutputStream());
-       this.clientes.add(ps);
+     try{
+       this.servidor = new ServerSocket(this.porta);
+       this.msg = "  Porta "+ this.porta +" aberta!";
+       /*Chat*/ interfaceServer = new Chat("Admin", servidor.getInetAddress().getLocalHost().getHostAddress(), true, this.porta);
        
-       // cria tratador de cliente numa nova thread
-       TrataCliente tc = new TrataCliente(cliente.getInputStream(), this);
-       new Thread(tc).start();
-     }
+       interfaceServer.setMessage(this.msg);
+       
+       while (true) {
+         // aceita um cliente
+         Socket cliente = servidor.accept();
+         this.msg = "  Nova conexão com o cliente " + cliente.getInetAddress().getHostAddress();
+         interfaceServer.setMessage(this.msg);
+         // adiciona saida do cliente à lista
+         PrintStream ps = new PrintStream(cliente.getOutputStream());
+         this.clientes.add(ps);
+       
+         // cria tratador de cliente numa nova thread
+         TrataCliente tc = new TrataCliente(cliente.getInputStream(), this);
+         new Thread(tc).start();
+       } 
+
+       }catch(IOException exception){
+
+        this.interfaceServer = new Chat(" ", " ", true, 0);
+        this.interfaceServer.erro_in();
+     
+        }
  
    }
  
    public void distribuiMensagem(String msg) {
      // envia msg para todo mundo
      for (PrintStream cliente : this.clientes) {
-       cliente.println(msg);
+      
+
+       if(interfaceServer.getSaiu() == true){
+
+        cliente.println("O Servidor foi fechado.");
+
+       }
+       else {
+
+        cliente.println(msg);        
+
+       }
+
      }
+
+     if(interfaceServer.getSaiu() == true){
+
+      System.exit(0);
+
+     }
+
    }
  }
